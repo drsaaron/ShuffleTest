@@ -53,6 +53,9 @@ public class CollectionShufflerImpl<T extends Object> implements CollectionShuff
                thing, we can only swap elements ahead.  That seems to give better
                results, i.e. the test gives a more uniform distribution of results.
                I still don't get why.
+            
+               It should be noted the C++ shuffle algorith (http://www.cplusplus.com/reference/algorithm/shuffle/)
+               works the same as the Collections.shuffle implementation.
             */
         //    int k = getRandomIndex(collection.size());  // what I think it should be
             int k = getRandomIndex(collection.size() - i) + i; // modeled on the Collections.shuffle source
