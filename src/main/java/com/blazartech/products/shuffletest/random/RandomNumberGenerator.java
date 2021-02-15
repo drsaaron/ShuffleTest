@@ -6,19 +6,19 @@
 package com.blazartech.products.shuffletest.random;
 
 /**
- *
+ * interface for a generic random number generator
  * @author AAR1069
  */
 public interface RandomNumberGenerator {
     
     /**
-     * get a uniform deviate in the range (0..1]
+     * get a random number defined by the distribution
      * @return 
      */
     public double getRandomValue();
     
     /**
-     * get a uniform deviate as an integer in the range (0..n]
+     * get a random number as an integer in the range (0..n] per the distribution
      * @param n
      * @return 
      */

@@ -42,7 +42,8 @@ public class RandomNumberGeneratorCommandLineRunner implements CommandLineRunner
         
         List<Integer> data = new ArrayList<>();
         for (int i = 0; i < DATA_COUNT; i++) {
-            data.add((int) (generator.getRandomValue() * RANGE));
+            data.add(generator.getRandomInt(RANGE));
+//            data.add((int) (generator.getRandomValue() * RANGE));
         }
         
         Map<Integer, Integer> histogram = histogramGenerator.generateHistogram(data);

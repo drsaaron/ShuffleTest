@@ -149,7 +149,7 @@ public class CollectionShufflerImplTest {
         int[] shuffledArray = new int[] { 1, 3, 0, 2, 4 };
         
         List<Integer> expResult = convertArray(shuffledArray);
-        Collection result = instance.shuffle(convertArray(testArray));
+        Collection<Integer> result = instance.shuffle(convertArray(testArray));
         assertEquals(expResult, result);
     }
 

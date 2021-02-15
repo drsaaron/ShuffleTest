@@ -9,7 +9,8 @@ import java.util.Random;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * provide a uniform deviate generator.
+ * 
  * @author AAR1069
  */
 @Component
