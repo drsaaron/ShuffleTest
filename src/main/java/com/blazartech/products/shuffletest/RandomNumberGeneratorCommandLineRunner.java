@@ -43,14 +43,17 @@ public class RandomNumberGeneratorCommandLineRunner implements CommandLineRunner
         List<Integer> data = new ArrayList<>();
         for (int i = 0; i < DATA_COUNT; i++) {
             data.add(generator.getRandomInt(RANGE));
-//            data.add((int) (generator.getRandomValue() * RANGE));
         }
         
         Map<Integer, Integer> histogram = histogramGenerator.generateHistogram(data);
-        
-        for (int i = 0; i < RANGE; i++) {
+
+        histogram.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByKey())
+                .forEach(e -> { logger.info("count[{}] = {}", e.getKey(), e.getValue()); });
+/*        for (int i = 0; i < RANGE; i++) {
             logger.info("count[" + i + "] = " + histogram.get(i));
-        }
+        }*/
     }
     
 }

@@ -9,6 +9,7 @@ import com.blazartech.products.shuffletest.histogram.HistogramGenerator;
 import com.blazartech.products.shuffletest.test.ShuffleTest;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
@@ -59,9 +60,13 @@ public class ShuffleTestCommandLineRunner implements CommandLineRunner {
         Map<Integer, Integer> histogram = histogramGenerator.generateHistogram(locations);
 
         // dump out the counts.
-        for (int m = 0; m < ARRAY_SIZE; m++) {
+        histogram.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByKey())
+                .forEachOrdered(e -> logger.info("position {} --> {}", e.getKey(), e.getValue()));
+/*        for (int m = 0; m < ARRAY_SIZE; m++) {
             logger.info("position " + m + " --> " + histogram.get(m));
-        }
+        }*/
     }
 
 }
