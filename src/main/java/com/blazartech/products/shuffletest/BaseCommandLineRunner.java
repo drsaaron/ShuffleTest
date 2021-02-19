@@ -26,18 +26,16 @@ abstract public class BaseCommandLineRunner {
                 .forEach(e -> logger.info(formatString, e.getKey(), e.getValue()));
 
         // calculate the mean
-        int total = histogram.values()
+        double mean = histogram.values()
                 .stream()
-                .collect(Collectors.summingInt(Integer::intValue));
-        int count = histogram.keySet().size();
-        int average = total / count;
-        logger.info("average = " + average);
+                .collect(Collectors.averagingInt(Integer::intValue));
+        logger.info("mean = {}", mean);
 
-        // calculate the standard deviation
-        double totalVariance = histogram.values()
+        // calculate the standard deviation        
+        double averageTotalVariance = histogram.values()
                 .stream()
-                .collect(Collectors.summingDouble(e -> Math.pow(e - average, 2)));
-        double standardDeviation = Math.sqrt(totalVariance / count);
+                .collect(Collectors.averagingDouble(e -> Math.pow(e - mean, 2)));
+        double standardDeviation = Math.sqrt(averageTotalVariance);
         logger.info("standardDeviation = {}", standardDeviation);
     }
 }
