@@ -6,7 +6,6 @@
 package com.blazartech.products.shuffletest;
 
 import java.util.Map;
-import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,21 +17,6 @@ import org.slf4j.LoggerFactory;
 abstract public class BaseCommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(BaseCommandLineRunner.class);
-
-    static class DeviationIntFunction implements ToIntFunction<Integer> {
-
-        private final int mean;
-
-        public DeviationIntFunction(int mean) {
-            this.mean = mean;
-        }
-
-        @Override
-        public int applyAsInt(Integer value) {
-            return (value - mean) * (value - mean);
-        }
-
-    }
 
     void dumpHistogram(Map<Integer, Integer> histogram, String formatString) {
 
@@ -50,11 +34,10 @@ abstract public class BaseCommandLineRunner {
         logger.info("average = " + average);
 
         // calculate the standard deviation
-        DeviationIntFunction toInt = new DeviationIntFunction(average);
-        int totalDeviation = histogram.values()
+        double totalVariance = histogram.values()
                 .stream()
-                .collect(Collectors.summingInt(toInt));
-        double standardDeviation = Math.sqrt(totalDeviation / count);
+                .collect(Collectors.summingDouble(e -> Math.pow(e - average, 2)));
+        double standardDeviation = Math.sqrt(totalVariance / count);
         logger.info("standardDeviation = {}", standardDeviation);
     }
 }
