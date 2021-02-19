@@ -8,9 +8,7 @@ package com.blazartech.products.shuffletest.test;
 import com.blazartech.products.shuffletest.shuffle.CollectionShuffler;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.Future;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 
 /**

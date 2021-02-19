@@ -20,6 +20,7 @@ abstract public class BaseCommandLineRunner {
 
     void dumpHistogram(Map<Integer, Integer> histogram, String formatString) {
 
+        // dump each value in the histogram to the log
         histogram.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByKey())
@@ -34,7 +35,10 @@ abstract public class BaseCommandLineRunner {
         // calculate the standard deviation        
         double averageTotalVariance = histogram.values()
                 .stream()
-                .collect(Collectors.averagingDouble(e -> Math.pow(e - mean, 2)));
+                .peek(v -> logger.debug("value {}, mean {}", v, mean))
+                .map(v -> Math.pow(v - mean, 2)) // variance
+                .peek(v -> logger.debug("variance {}", v))
+                .collect(Collectors.averagingDouble(Double::doubleValue)); // average of the variance
         double standardDeviation = Math.sqrt(averageTotalVariance);
         logger.info("standardDeviation = {}", standardDeviation);
     }
