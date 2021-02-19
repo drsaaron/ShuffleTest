@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Order(2)
-public class RandomNumberGeneratorCommandLineRunner implements CommandLineRunner {
+public class RandomNumberGeneratorCommandLineRunner extends BaseCommandLineRunner implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(RandomNumberGeneratorCommandLineRunner.class);
     
@@ -47,13 +47,7 @@ public class RandomNumberGeneratorCommandLineRunner implements CommandLineRunner
         
         Map<Integer, Integer> histogram = histogramGenerator.generateHistogram(data);
 
-        histogram.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByKey())
-                .forEach(e -> { logger.info("count[{}] = {}", e.getKey(), e.getValue()); });
-/*        for (int i = 0; i < RANGE; i++) {
-            logger.info("count[" + i + "] = " + histogram.get(i));
-        }*/
+        dumpHistogram(histogram, "count[{}] = {}");
     }
     
 }

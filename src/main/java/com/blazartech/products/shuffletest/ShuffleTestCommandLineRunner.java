@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Order(1)
-public class ShuffleTestCommandLineRunner implements CommandLineRunner {
+public class ShuffleTestCommandLineRunner extends BaseCommandLineRunner implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(ShuffleTestCommandLineRunner.class);
 
@@ -60,13 +60,7 @@ public class ShuffleTestCommandLineRunner implements CommandLineRunner {
         Map<Integer, Integer> histogram = histogramGenerator.generateHistogram(locations);
 
         // dump out the counts.
-        histogram.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByKey())
-                .forEachOrdered(e -> logger.info("position {} --> {}", e.getKey(), e.getValue()));
-/*        for (int m = 0; m < ARRAY_SIZE; m++) {
-            logger.info("position " + m + " --> " + histogram.get(m));
-        }*/
+        dumpHistogram(histogram, "position {} --> {}");
     }
 
 }
